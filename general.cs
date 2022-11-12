@@ -52,3 +52,22 @@ delete from CATEGORIA where IdCategoria=10
 //mostrando una vista
 select * 
 from [dbo].[VProductoCategoria]
+
+--CLAUSULA DISTINCT
+select distinct nombre from personas
+
+--OPERADORES AND Y OR
+select * from personas where nombre='antonio' and apellido1='garcia'
+select * from personas where nombre='antonio' or apellido1='garcia'
+
+--CLAUSULA ORDER BY
+select nombre_columna from nombre_tabla order by nombre_columna(s) ASC|DESC;
+
+---SENTENCIA UPDATE
+update nombre_tabla set coulmna1= valor1,... where columna2=columna3
+
+--CLAUSULA SET Y WHERE
+update personas set apellido2 ='rodriguez' where nombre = 'antonion' and apelldio1 ='asoidfoasdf'
+
+
+
