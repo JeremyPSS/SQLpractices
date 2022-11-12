@@ -135,3 +135,133 @@ BEGIN
 	where Nombre like @Valor OR Categoria like @Valor
 END
 GO
+
+///////////////////CREATE FUNCTION////////////////////////////
+----------------------------------------------------
+create function myfuncion() //no contiene parametros
+returns int //tipo de retorno de la funcion
+as $$ //cuerpo de la funcion
+begin 
+return 100;
+end;
+$$ language plpdsql;
+----------------------------------------------------
+select myfuncion() //para ejecutar la funcion
+----------------------------------------------------
+create or replace function myfuncion()//para crear nuevamente la funcion sin eliminarla (editar)
+----------------------------------------------------
+//function with params
+create function myfuncion(num int) 
+returns int 
+as $$ 
+begin 
+return num*2;
+end;
+$$ language plpdsql;
+----------------------------------------------------
+///////////////////CREATE TABLE WITH FUNCTIONS////////////////////////////
+CREATE OR REPLACE FUNCTION CREARTABLE()
+RETURNS TEXT
+AS $$
+BEGIN
+	CREATE TABLE mitable(
+	nom VARCHAR(45),
+	..)
+	RETURN 'TABLA CREADA' //creo que es un mensaje
+END;
+$$ LAGNUAGE plpsql;
+----------------------------------------------------
+SELECT CREARTABLE();
+SELECT * FROM mitable;//comprobacion
+
+///////////////////IF EXISTS////////////////////////////
+//funcion para eliminar una tabla si existe, y si no existe crearla
+CREATE OR REPLACE FUNCTION creartabla()
+RETURNS TEXT
+AS $$
+BEGIN
+
+	IF EXISTS(SELECT tablename FROM pg_tables WHERE tablename='tableprueba1')
+	THEN 
+		DROP TABLE tableprueba1;
+	END IF;
+	IF NOT EXISTS(SELECT tablename FROM pg_tables WHERE tablename='tableprueba1')
+	THEN
+	CREATE TABLE tableprueba1(
+	nom varchar(45),
+	...)	
+
+RETURN 'creawcion tabla'
+NED;
+$$ LANGUAGE plpsql;
+----------------------------------------------------
+SELECT creartabla(); //llamar
+
+///////////////////RAISE NOTICE////////////////////////////
+CREATE OR REPLACE FUNCTION creartabla()
+RETURNS TEXT
+AS $$
+BEGIN
+
+	IF EXISTS(SELECT tablename FROM pg_tables WHERE tablename='tableprueba1')
+	THEN 
+		DROP TABLE tableprueba1;
+	END IF;
+	RAISE NOTICE 'tabla eliminada llamadatableprueba1'
+
+	IF NOT EXISTS(SELECT tablename FROM pg_tables WHERE tablename='tableprueba1')
+	THEN
+	CREATE TABLE tableprueba1(
+	nom varchar(45),
+	...);
+	END IF;
+	AISE NOTICE 'tabla creada llamadatableprueba1'	
+
+RETURN 'creawcion tabla'
+NED;
+$$ LANGUAGE plpsql;
+///////////////////INSERTAR DATOS A UNA TABLA CON FUNCIONES////////////////////////////
+CREATE OR REPLACE FUNCTION creartabla()
+RETURNS TEXT
+AS $$
+BEGIN
+
+	IF EXISTS(SELECT tablename FROM pg_tables WHERE tablename='tableprueba1')
+	THEN 
+		DROP TABLE tableprueba1;
+	END IF;
+	RAISE NOTICE 'tabla eliminada llamadatableprueba1'
+
+	IF NOT EXISTS(SELECT tablename FROM pg_tables WHERE tablename='tableprueba1')
+	THEN
+	CREATE TABLE tableprueba1(
+	nom varchar(45),
+	...);
+	END IF;
+	RAISE NOTICE 'tabla creada llamadatableprueba1'	
+
+	INSERT INTO tableprueba1(nom, edad, ciuda)
+	VALUES('JUAN'.23.'MACHALA');
+RAISE NOTICE 'ASDFASDFASDFS';
+
+RETURN 'creawcion tabla'
+NED;
+$$ LANGUAGE plpsql;
+-----------------
+/////////////////////CREAWTE A QUERY INTO A FUNCTION/////////////////////
+CREATE OR REPLACE FUNCTION CREARTABLE()
+RETURNS TEXT
+AS $$
+DECLARE 
+	pquery TEXT;
+BEGIN
+	CREATE TABLE mitable(
+	nom VARCHAR(45),
+	..)
+	RETURN 'TABLA CREADA' //creo que es un mensaje
+	psquery:='DROP TABLE tablaprueba1';
+	EXECUTE psquery; //para ejectuar el cuery
+END;
+$$ LANGUAGE plpsql;
+
+
